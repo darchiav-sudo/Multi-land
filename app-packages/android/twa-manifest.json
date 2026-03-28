@@ -1,0 +1,45 @@
+{
+  "packageId": "app.multiland.twa",
+  "host": "your-app-domain.replit.app",
+  "name": "Multi Land",
+  "launcherName": "Multi Land",
+  "display": "standalone",
+  "themeColor": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#FFFFFF",
+  "navigationDividerColorDark": "#FFFFFF",
+  "backgroundColor": "#FFFFFF",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://your-app-domain.replit.app/icons/icon-512.png",
+  "maskableIconUrl": "https://your-app-domain.replit.app/icons/maskable-icon-512.png",
+  "appVersion": "1.0.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "PWABuilder",
+  "webManifestUrl": "https://your-app-domain.replit.app/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": {
+      "enabled": false
+    },
+    "playBilling": {
+      "enabled": false
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://your-app-domain.replit.app/",
+  "minSdkVersion": 19,
+  "signingKey": {
+    "path": "",
+    "alias": ""
+  },
+  "appUrl": "https://your-app-domain.replit.app/",
+  "additionalTrustedOrigins": []
+}

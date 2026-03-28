@@ -1,0 +1,57 @@
+{
+  "applicationId": "com.multiland.app",
+  "appName": "Multi Land",
+  "webAppUrl": "https://your-deployed-url.com",
+  "allowsBackForwardNavigationGestures": true,
+  "enabledDataDetectorTypes": ["link", "phoneNumber"],
+  "bounces": true,
+  "enableViewportScale": true,
+  "suppressesIncrementalRendering": false,
+  "allowsInlineMediaPlayback": true,
+  "allowsAirPlayForMediaPlayback": true,
+  "requiresUserActionForMediaPlayback": false,
+  "allowsPictureInPictureMediaPlayback": true,
+  "applicationQueriesSchemes": [],
+  "customHeaders": {
+    "X-Special-Header": "MultiLand-iOS-App"
+  },
+  "preferredBarTintColor": "#000000",
+  "preferredControlTintColor": "#FFFFFF",
+  "NSCameraUsageDescription": "Multi Land needs camera access to allow you to upload profile pictures and course content.",
+  "NSPhotoLibraryUsageDescription": "Multi Land needs photo library access to allow you to upload profile pictures and course content.",
+  "NSMicrophoneUsageDescription": "Multi Land needs microphone access for interactive video lessons.",
+  "LSApplicationQueriesSchemes": [
+    "mailto",
+    "tel"
+  ],
+  "UIBackgroundModes": [
+    "audio",
+    "fetch"
+  ],
+  "splashScreenSettings": {
+    "backgroundColor": "#FFFFFF",
+    "logoImage": "app_logo",
+    "showActivityIndicator": true,
+    "activityIndicatorColor": "#000000",
+    "showLoadingText": true,
+    "loadingText": "Loading Multi Land",
+    "logoScale": 0.5
+  },
+  "orientationSettings": {
+    "allowPortrait": true,
+    "allowPortraitUpsideDown": false,
+    "allowLandscapeLeft": true,
+    "allowLandscapeRight": true
+  },
+  "userAgentSettings": {
+    "appendCustomUserAgent": "MultiLand-iOS-App/1.0.0"
+  },
+  "urlScheme": "multiland",
+  "deepLinkingSettings": {
+    "enabled": true,
+    "customScheme": "multiland",
+    "associatedDomains": [
+      "applinks:your-deployed-url.com"
+    ]
+  }
+}

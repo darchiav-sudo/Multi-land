@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Solid background for iOS (no transparency) -->
+  <rect width="1024" height="1024" fill="#000000"/>
+  
+  <!-- Main circle -->
+  <circle cx="512" cy="512" r="358.4" fill="#FFFFFF"/>
+  
+  <!-- ML Text -->
+  <text x="512" y="580" font-family="Arial, sans-serif" font-size="320" font-weight="bold" text-anchor="middle" fill="#000000">ML</text>
+</svg>

@@ -1,0 +1,68 @@
+{
+  "appName": "Multi Land",
+  "appId": "app.multiland.ios",
+  "bundleId": "app.multiland.ios",
+  "bundleVersion": "1.0.0",
+  "startURL": "https://your-app-domain.replit.app",
+  "imageURL": "icon-1024.png",
+  "splashScreenURL": "splashScreen.png",
+  "shortcuts": [],
+  "externalLinks": [],
+  "capabilities": {
+    "access": {
+      "allowProximity": false,
+      "allowMedia": true,
+      "cameraUsageDescription": "This app needs camera access to allow you to upload profile pictures and course content images.",
+      "microphoneUsageDescription": "This app needs microphone access for video content with audio.",
+      "photoUsageDescription": "This app needs photo library access to allow you to upload images for your profile and courses."
+    },
+    "settings": {
+      "preferRelatedApplications": false,
+      "iosUniversalLinks": [],
+      "iosAppLinks": [],
+      "safeAreaInsets": {
+        "top": "0",
+        "bottom": "0",
+        "left": "0",
+        "right": "0"
+      }
+    },
+    "style": {
+      "backgroundColor": "#FFFFFF",
+      "display": "standalone",
+      "darkMode": true,
+      "prefersColorScheme": "light",
+      "fullscreen": false,
+      "fullSizeContent": false,
+      "pullToRefresh": false,
+      "iosKeyboardAppearance": "default",
+      "orientation": "default",
+      "navigationBar": {
+        "hidden": false,
+        "translucent": false,
+        "barStyle": "default",
+        "hideInFullscreen": false,
+        "animated": true,
+        "title": "Multi Land",
+        "style": {
+          "backgroundColor": "#000000",
+          "textColor": "#FFFFFF"
+        }
+      },
+      "statusBar": {
+        "hidden": false,
+        "style": "default",
+        "animated": true,
+        "hideInFullscreen": false
+      }
+    },
+    "navigation": {
+      "windowsPreview": true,
+      "allowBack": false
+    },
+    "multiPlatform": {
+      "multiPlatformEnabled": false,
+      "multiPlatformPrimaryPlatform": null
+    }
+  }
+}

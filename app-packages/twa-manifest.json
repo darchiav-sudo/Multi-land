@@ -1,0 +1,61 @@
+{
+  "packageId": "com.multiland.app",
+  "host": "your-deployed-url.com",
+  "name": "Multi Land",
+  "launcherName": "Multi Land",
+  "display": "standalone",
+  "themeColor": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#FFFFFF",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://your-deployed-url.com/icons/icon-512.svg",
+  "maskableIconUrl": "https://your-deployed-url.com/icons/maskable-icon-512.svg",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/path/to/your/keystore.jks",
+    "alias": "multiland"
+  },
+  "appVersionCode": 1,
+  "appVersionName": "1.0.0",
+  "shortcuts": [
+    {
+      "name": "My Learning",
+      "shortName": "Learning",
+      "url": "/my-learning",
+      "icon": {
+        "url": "/icons/icon-192.svg"
+      }
+    },
+    {
+      "name": "All Courses",
+      "shortName": "Courses",
+      "url": "/courses",
+      "icon": {
+        "url": "/icons/icon-192.svg"
+      }
+    }
+  ],
+  "generatorApp": "Multi Land PWA Builder",
+  "webManifestUrl": "https://your-deployed-url.com/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": {
+      "enabled": false
+    },
+    "playBilling": {
+      "enabled": false
+    }
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://your-deployed-url.com/",
+  "minSdkVersion": 19,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": []
+}

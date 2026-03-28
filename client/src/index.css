@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Enhanced input fields for mobile */
+  input, select, textarea {
+    @apply appearance-none;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  /* Make buttons more tappable on mobile but compact */
+  button, .btn, [role="button"] {
+    min-height: 38px;
+    min-width: 38px;
+  }
+  
+  /* Global compact spacing */
+  .container {
+    @apply px-2 sm:px-3;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply mb-2;
+  }
+  
+  p {
+    @apply my-1;
+  }
+  
+  /* Reduce card padding */
+  .card, .card-body {
+    @apply p-2 sm:p-3;
+  }
+  
+  /* Compact form elements */
+  .form-group, .input-group {
+    @apply mb-2;
+  }
+  
+  /* Reduce spacing in lists */
+  ul, ol {
+    @apply my-1 pl-4;
+  }
+  
+  /* Make dialogs more compact */
+  .dialog-content {
+    @apply p-3;
+  }
+  
+  /* Compact spacing for sections */
+  section {
+    @apply py-2 sm:py-3;
+  }
+  
+  /* Reduce table cell padding */
+  td, th {
+    @apply px-2 py-1.5;
+  }
+}
+
+/* Override scrollbars for mobile devices */
+@media (max-width: 768px) {
+  /* Hide scrollbars but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Improve touch targets */
+  .touch-target {
+    @apply p-2;
+  }
+  
+  /* Add native-like bottom navigation */
+  .mobile-navbar {
+    @apply fixed bottom-0 left-0 right-0 flex justify-around items-center py-2 px-1 bg-background border-t border-border z-50;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Native-like pull to refresh indicator space */
+  .pull-to-refresh-space {
+    @apply h-10;
+  }
+  
+  /* More compact spacing on mobile */
+  .mobile-compact {
+    @apply p-1 m-1 gap-1;
+  }
+  
+  /* Smaller font on mobile */
+  .mobile-text {
+    @apply text-sm;
+  }
+}

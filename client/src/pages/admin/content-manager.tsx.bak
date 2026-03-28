@@ -1,0 +1,1017 @@
+import { useState, useEffect } from "react";
+
+import { Course, Content, VideoItem, PDFItem } from "@shared/schema";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useLanguage } from "@/hooks/use-language";
+import { useParams, useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/hooks/use-toast";
+import { AccessibleFileUpload } from "@/components/ui/accessible-file-upload";
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle 
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription, 
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from "@/components/ui/tabs";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle
+} from "@/components/ui/alert";
+import { 
+  Plus, 
+  Edit, 
+  Trash2, 
+  FileText, 
+  Video, 
+  FileQuestion, 
+  File, 
+  ArrowUp,
+  ArrowDown,
+  AlertCircle,
+  Layers,
+  ChevronLeft,
+  Eye
+} from "lucide-react";
+
+export default function ContentManager() {
+  const { courseId } = useParams();
+  const [, navigate] = useLocation();
+  const { t } = useLanguage();
+  
+  const [selectedContent, setSelectedContent] = useState<Content | null>(null);
+  const [contentDialogOpen, setContentDialogOpen] = useState(false);
+  const [contentType, setContentType] = useState<string>("text");
+  const [isFileUploading, setIsFileUploading] = useState(false);
+  
+  // Video items state for multiple videos
+  const [videoItems, setVideoItems] = useState<VideoItem[]>([]);
+  
+  // Form data states
+  const [contentData, setContentData] = useState({
+    title: "",
+    thumbnailUrl: "",
+    textContent: "",
+    videoUrl: "",
+    videoItems: [] as VideoItem[],
+    pdfUrl: "",
+    pdfItems: [] as PDFItem[],
+    quizContent: "",
+    // Legacy fields for compatibility
+    type: "mixed", // Now using "mixed" as default
+    content: "",
+    order: 1,
+    display_order: '["video","text","pdf","quiz"]', // Default display order
+  });
+  
+  // File upload states
+  const [uploadedFile, setUploadedFile] = useState<{
+    fileUrl: string;
+    fileType: string;
+    fileName: string;
+  } | null>(null);
+  
+  const [uploadedThumbnail, setUploadedThumbnail] = useState<{
+    fileUrl: string;
+    fileType: string;
+    fileName: string;
+  } | null>(null);
+  
+  // Upload progress state
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+
+  // Get course details
+  const { data: course, isLoading: isLoadingCourse } = useQuery<Course>({
+    queryKey: ["/api/courses", courseId],
+    queryFn: async () => {
+      const res = await apiRequest("GET", `/api/courses/${courseId}`);
+      return res.json();
+    },
+    enabled: !!courseId,
+  });
+
+  // Get contents for the course
+  const { data: contents, isLoading: isLoadingContents } = useQuery<Content[]>({
+    queryKey: ["/api/courses", courseId, "contents"],
+    queryFn: async () => {
+      if (!courseId) return [];
+      const res = await apiRequest("GET", `/api/courses/${courseId}/contents`);
+      return res.json();
+    },
+    enabled: !!courseId,
+  });
+
+  // Create content mutation
+  const createContentMutation = useMutation({
+    mutationFn: async (data: { 
+      courseId: number;
+      title: string; 
+      thumbnailUrl?: string;
+      textContent?: string;
+      videoUrl?: string;
+      videoItems?: VideoItem[];
+      pdfUrl?: string;
+      pdfItems?: PDFItem[];
+      quizContent?: string;
+      type: string; 
+      content: string; 
+      order: number 
+    }) => {
+      console.log("Creating content with data:", JSON.stringify(data, null, 2));
+      
+      try {
+        const res = await apiRequest("POST", "/api/contents", data);
+        console.log("Content creation response status:", res.status);
+        
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error("Error response from server:", errorText);
+          throw new Error(`Failed to create content: ${res.statusText}`);
+        }
+        
+        const responseData = await res.json();
+        console.log("Content creation successful, response:", responseData);
+        return responseData;
+      } catch (error) {
+        console.error("Content creation exception:", error);
+        throw error;
+      }
+    },
+    onSuccess: (data) => {
+      console.log("Content creation mutation succeeded:", data);
+      setContentDialogOpen(false);
+      setContentData({ 
+        title: "", 
+        thumbnailUrl: "",
+        textContent: "",
+        videoUrl: "",
+        videoItems: [],
+        pdfUrl: "",
+        pdfItems: [],
+        quizContent: "",
+        type: "mixed", 
+        content: "", 
+        order: 1,
+        display_order: '["video","text","pdf","quiz"]',
+      });
+      setUploadedFile(null);
+      setUploadedThumbnail(null);
+      
+      // Invalidate relevant query
+      queryClient.invalidateQueries({ queryKey: ["/api/courses", courseId, "contents"] });
+    },
+    onError: (error: Error) => {
+      console.error("Content creation mutation failed:", error.message);
+      alert(`Failed to add content: ${error.message}`);
+    },
+  });
+
+  // Update content order mutation
+  const updateContentOrderMutation = useMutation({
+    mutationFn: async ({ contentId, newOrder }: { contentId: number; newOrder: number }) => {
+      const res = await apiRequest("PATCH", `/api/contents/${contentId}/order`, { order: newOrder });
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/courses", courseId, "contents"] });
+    },
+    onError: (error: Error) => {
+      console.error("Failed to update content order:", error.message);
+    },
+  });
+  
+  // Update content mutation
+  const updateContentMutation = useMutation({
+    mutationFn: async (data: { 
+      id: number;
+      title: string; 
+      thumbnailUrl?: string;
+      textContent?: string;
+      videoUrl?: string;
+      videoItems?: VideoItem[];
+      pdfUrl?: string;
+      pdfItems?: PDFItem[];
+      quizContent?: string;
+      type: string; 
+      content: string; 
+      order: number 
+    }) => {
+      const { id, ...updateData } = data;
+      const res = await apiRequest("PUT", `/api/contents/${id}`, updateData);
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/courses", courseId, "contents"] });
+      setSelectedContent(null);
+      setContentDialogOpen(false);
+    },
+    onError: (error: Error) => {
+      console.error("Failed to update content:", error.message);
+    },
+  });
+  
+  // Delete content mutation
+  const deleteContentMutation = useMutation({
+    mutationFn: async (contentId: number) => {
+      await apiRequest("DELETE", `/api/contents/${contentId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/courses", courseId, "contents"] });
+      setSelectedContent(null);
+    },
+    onError: (error: Error) => {
+      console.error("Failed to delete content:", error.message);
+    },
+  });
+
+  // Handle file uploads
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>, fileType: string) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Create form data and append file
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setIsFileUploading(true);
+    setUploadProgress(0);
+
+    try {
+      // Use different endpoints based on file type
+      const endpointUrl = fileType === 'thumbnail' 
+        ? "/api/upload/thumbnail" 
+        : "/api/upload/content-file";
+      
+      // Use XMLHttpRequest to track upload progress
+      const xhr = new XMLHttpRequest();
+      
+      // Create a promise to handle the async XHR
+      const uploadPromise = new Promise<any>((resolve, reject) => {
+        xhr.open('POST', endpointUrl, true);
+        
+        // Include credentials (cookies)
+        xhr.withCredentials = true;
+        
+        // Track upload progress
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const percentComplete = Math.round((event.loaded / event.total) * 100);
+            setUploadProgress(percentComplete);
+          }
+        };
+        
+        // Handle completion
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              const result = JSON.parse(xhr.responseText);
+              resolve(result);
+            } catch (e) {
+              reject(new Error('Invalid response format'));
+            }
+          } else {
+            reject(new Error(`Upload failed: ${xhr.statusText}`));
+          }
+        };
+        
+        // Handle errors
+        xhr.onerror = () => {
+          reject(new Error('Network error during upload'));
+        };
+        
+        // Send the form data
+        xhr.send(formData);
+      });
+      
+      // Wait for upload completion
+      const result = await uploadPromise;
+      
+      // Update appropriate field based on file type
+      if (fileType === 'thumbnail') {
+        setUploadedThumbnail(result);
+        setContentData({
+          ...contentData,
+          thumbnailUrl: result.fileUrl,
+        });
+      } else if (fileType === 'video') {
+        setUploadedFile(result);
+        
+        // Default video name based on file name
+        const fileName = result.fileName || 'Untitled Video';
+        const videoName = fileName.split('.')[0]; // Remove extension
+        
+        // Create a new video item
+        const newVideoItem: VideoItem = {
+          name: videoName,
+          url: result.fileUrl
+        };
+        
+        // Update state with new video
+        setContentData({
+          ...contentData,
+          videoUrl: result.fileUrl, // Keep for backward compatibility
+          videoItems: [...contentData.videoItems, newVideoItem],
+          content: result.fileUrl, // For backward compatibility
+        });
+      } else if (fileType === 'pdf') {
+        setUploadedFile(result);
+        
+        // Default PDF name based on file name
+        const fileName = result.fileName || 'Untitled PDF';
+        const pdfName = fileName.split('.')[0]; // Remove extension
+        
+        // Create a new PDF item
+        const newPDFItem: PDFItem = {
+          name: pdfName,
+          url: result.fileUrl
+        };
+        
+        // Update state with new PDF
+        setContentData({
+          ...contentData,
+          pdfUrl: result.fileUrl, // Keep for backward compatibility
+          pdfItems: [...contentData.pdfItems, newPDFItem],
+          content: result.fileUrl, // For backward compatibility
+        });
+      }
+
+      console.log("File uploaded successfully:", fileType);
+    } catch (error) {
+      console.error("File upload failed:", error instanceof Error ? error.message : String(error));
+    } finally {
+      setIsFileUploading(false);
+    }
+  };
+
+  // Handle content form submission
+  const handleContentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!courseId) return;
+
+    console.log("Form submit - content data:", contentData);
+
+    // Prepare content summary for legacy compatibility
+    const contentSummary = `Mixed content: ${contentData.textContent ? 'Text, ' : ''}${contentData.videoUrl ? 'Video, ' : ''}${contentData.pdfUrl ? 'PDF, ' : ''}${contentData.quizContent ? 'Quiz' : ''}`.replace(/, $/, '');
+
+    // Create content payload (ensure title is never empty)
+    const contentPayload = {
+      courseId: parseInt(courseId),
+      title: contentData.title.trim() || "Untitled Content", // Prevent empty titles
+      thumbnailUrl: contentData.thumbnailUrl,
+      textContent: contentData.textContent,
+      videoUrl: contentData.videoUrl,
+      videoItems: contentData.videoItems,
+      pdfUrl: contentData.pdfUrl,
+      pdfItems: contentData.pdfItems,
+      quizContent: contentData.quizContent,
+      type: "mixed",
+      content: contentSummary || contentData.content, // For backward compatibility
+      order: contentData.order,
+      display_order: contentData.display_order, // Include display order for video playback mode
+    };
+
+    console.log("Submitting content payload:", contentPayload);
+
+    if (selectedContent) {
+      // Update existing content
+      console.log("Updating content ID:", selectedContent.id);
+      updateContentMutation.mutate({
+        id: selectedContent.id,
+        ...contentPayload
+      });
+    } else {
+      // Create new content
+      console.log("Creating new content");
+      createContentMutation.mutate(contentPayload);
+    }
+  };
+
+  // Handle content reordering
+  const handleMoveContent = (content: Content, direction: 'up' | 'down') => {
+    if (!contents) return;
+    
+    const currentIndex = contents.findIndex(c => c.id === content.id);
+    let newOrder: number;
+    
+    if (direction === 'up' && currentIndex > 0) {
+      // Moving up - take the order of the previous item minus 1
+      newOrder = contents[currentIndex - 1].order - 1;
+    } else if (direction === 'down' && currentIndex < contents.length - 1) {
+      // Moving down - take the order of the next item plus 1
+      newOrder = contents[currentIndex + 1].order + 1;
+    } else {
+      return; // Can't move further up or down
+    }
+    
+    updateContentOrderMutation.mutate({ contentId: content.id, newOrder });
+  };
+
+  // Set initial order for new content
+  useEffect(() => {
+    if (courseId && contents) {
+      setContentData(prev => ({ 
+        ...prev,
+        order: (contents?.length || 0) + 1,
+      }));
+    }
+  }, [courseId, contents]);
+
+  if (isLoadingCourse) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+      </div>
+    );
+  }
+
+  if (!course) {
+    return (
+      <div className="p-6 bg-red-50 rounded-lg text-red-700">
+        <h3 className="font-medium">Error</h3>
+        <p className="text-sm mt-1">Course not found</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container p-6">
+      <div className="flex items-center mb-6 gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={() => navigate("/admin/courses")}
+          className="mr-2"
+        >
+          <ChevronLeft className="h-4 w-4 mr-1" />
+          {t("Back to Courses")}
+        </Button>
+        <h1 className="text-3xl font-bold">{course.title} - {t("Content Management")}</h1>
+      </div>
+      
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex justify-between items-center">
+            <CardTitle>{t("Course Content")}</CardTitle>
+            <Button 
+              onClick={() => {
+                setContentData({
+                  title: "",
+                  thumbnailUrl: "",
+                  textContent: "",
+                  videoUrl: "",
+                  videoItems: [],
+                  pdfUrl: "",
+                  pdfItems: [],
+                  quizContent: "",
+                  type: "mixed",
+                  content: "",
+                  order: (contents?.length || 0) + 1,
+                });
+                setContentDialogOpen(true);
+              }}
+              className="bg-black text-white hover:bg-gray-800"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              {t("Add Content")}
+            </Button>
+          </div>
+          <CardDescription>
+            {t("Manage content for this course")}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isLoadingContents ? (
+            <div className="flex items-center justify-center p-4">
+              <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+            </div>
+          ) : contents && contents.length > 0 ? (
+            <div className="space-y-3">
+              {contents.map((content) => (
+                <div key={content.id} className="p-4 border rounded-md">
+                  <div className="flex gap-3">
+                    {content.thumbnailUrl && (
+                      <div className="w-16 h-16 rounded border overflow-hidden flex-shrink-0">
+                        <img 
+                          src={content.thumbnailUrl} 
+                          alt={content.title} 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <div className="flex items-center">
+                        {content.type === "text" && <FileText className="w-4 h-4 mr-2 text-blue-500" />}
+                        {content.type === "video" && <Video className="w-4 h-4 mr-2 text-red-500" />}
+                        {content.type === "pdf" && <File className="w-4 h-4 mr-2 text-orange-500" />}
+                        {content.type === "quiz" && <FileQuestion className="w-4 h-4 mr-2 text-green-500" />}
+                        {content.type === "mixed" && <Layers className="w-4 h-4 mr-2 text-purple-500" />}
+                        <span className="font-medium">{content.title}</span>
+                      </div>
+                      
+                      {/* Action buttons now appear below the title */}
+                      <div className="flex space-x-2 mt-2 mb-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleMoveContent(content, 'up')}
+                          disabled={contents.indexOf(content) === 0}
+                        >
+                          <ArrowUp className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleMoveContent(content, 'down')}
+                          disabled={contents.indexOf(content) === contents.length - 1}
+                        >
+                          <ArrowDown className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            setSelectedContent(content);
+                            setContentData({
+                              title: content.title,
+                              thumbnailUrl: content.thumbnailUrl || "",
+                              textContent: content.textContent || "",
+                              videoUrl: content.videoUrl || "",
+                              videoItems: content.videoItems || [],
+                              pdfUrl: content.pdfUrl || "",
+                              pdfItems: content.pdfItems || [],
+                              quizContent: content.quizContent || "",
+                              type: content.type,
+                              content: content.content,
+                              order: content.order,
+                              display_order: content.display_order || '["video","text","pdf","quiz"]',
+                            });
+                            setContentDialogOpen(true);
+                          }}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="text-blue-500"
+                          onClick={() => {
+                            // Navigate to the content preview page
+                            navigate(`/admin/content-preview/${content.id}`);
+                          }}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="text-red-500"
+                          onClick={() => {
+                            if (confirm(t("Are you sure you want to delete this content?"))) {
+                              deleteContentMutation.mutate(content.id);
+                            }
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      
+                      <div className="text-sm text-gray-500">
+                        {t("Type")}: {content.type.charAt(0).toUpperCase() + content.type.slice(1)}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {t("Order")}: {content.order}
+                      </div>
+                      {/* Show mixed content indicators */}
+                      {content.type === "mixed" && (
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {content.textContent && <Badge variant="outline" className="text-xs"><FileText className="w-3 h-3 mr-1" />Text</Badge>}
+                          
+                          {/* Show single video badge */}
+                          {content.videoUrl && !content.videoItems?.length && 
+                            <Badge variant="outline" className="text-xs"><Video className="w-3 h-3 mr-1" />Video</Badge>
+                          }
+                          
+                          {/* Show multiple videos badge with count */}
+                          {content.videoItems && content.videoItems.length > 0 && 
+                            <Badge variant="outline" className="text-xs">
+                              <Video className="w-3 h-3 mr-1" />
+                              {t("Videos")} ({content.videoItems.length})
+                            </Badge>
+                          }
+                          
+                          {/* Show single PDF badge */}
+                          {content.pdfUrl && !content.pdfItems?.length && 
+                            <Badge variant="outline" className="text-xs"><File className="w-3 h-3 mr-1" />PDF</Badge>
+                          }
+                          
+                          {/* Show multiple PDFs badge with count */}
+                          {content.pdfItems && content.pdfItems.length > 0 && 
+                            <Badge variant="outline" className="text-xs">
+                              <File className="w-3 h-3 mr-1" />
+                              {t("PDFs")} ({content.pdfItems.length})
+                            </Badge>
+                          }
+                          {content.quizContent && <Badge variant="outline" className="text-xs"><FileQuestion className="w-3 h-3 mr-1" />Quiz</Badge>}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              {t("No content found. Add content to this course.")}
+            </div>
+          )}
+          
+          {/* Duplicate Add Content button at the bottom of the page */}
+          <div className="flex justify-center mt-4">
+            <Button 
+              onClick={() => {
+                setContentData({
+                  title: "",
+                  thumbnailUrl: "",
+                  textContent: "",
+                  videoUrl: "",
+                  videoItems: [],
+                  pdfUrl: "",
+                  pdfItems: [],
+                  quizContent: "",
+                  type: "mixed",
+                  content: "",
+                  order: (contents?.length || 0) + 1,
+                });
+                setContentDialogOpen(true);
+              }}
+              className="bg-black text-white hover:bg-gray-800"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              {t("Add Content")}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Content dialog */}
+      <Dialog open={contentDialogOpen} onOpenChange={setContentDialogOpen}>
+        <DialogContent className="w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{selectedContent ? t("Edit Content") : t("Add Content")}</DialogTitle>
+            <DialogDescription>
+              {selectedContent 
+                ? t("Update content for your course. You can combine multiple content types.") 
+                : t("Add content to your course. You can combine multiple content types.")
+              }
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleContentSubmit}>
+            <div className="space-y-4 py-3">
+              <div className="space-y-2">
+                <Label htmlFor="title">{t("Content Title")}</Label>
+                <Input
+                  id="title"
+                  value={contentData.title}
+                  onChange={(e) => setContentData({ ...contentData, title: e.target.value })}
+                  placeholder={t("Enter content title")}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="order">{t("Display Order")}</Label>
+                <Input
+                  id="order"
+                  type="number"
+                  min="1"
+                  value={contentData.order}
+                  onChange={(e) => setContentData({ ...contentData, order: parseInt(e.target.value) || 1 })}
+                  placeholder={t("Enter display order")}
+                  required
+                />
+                <p className="text-xs text-gray-500">{t("Lower numbers appear first")}</p>
+              </div>
+              <div className="space-y-2">
+                <AccessibleFileUpload
+                  id="thumbnail"
+                  accept="image/*"
+                  label={t("Thumbnail (optional)")}
+                  helpText={t("Recommended: 16:9 ratio")}
+                  showPreview={true}
+                  uploading={isFileUploading}
+                  progress={uploadProgress}
+                  disabled={isFileUploading}
+                  maxSize={10} // 10MB limit
+                  onFilesSelected={(files) => {
+                    if (files.length > 0) {
+                      const event = { target: { files: { 0: files[0], length: 1 } } } as unknown as React.ChangeEvent<HTMLInputElement>;
+                      handleFileUpload(event, 'thumbnail');
+                    }
+                  }}
+                  onError={(errorMessage) => {
+                    toast({
+                      variant: "destructive",
+                      title: t("Upload Error"),
+                      description: errorMessage,
+                    });
+                  }}
+                />
+                
+                {uploadedThumbnail && (
+                  <div className="mt-2 p-2 border rounded-md bg-gray-50">
+                    <div className="text-sm font-medium">{t("Uploaded thumbnail")}</div>
+                    <div className="mt-1 h-24 w-24 overflow-hidden rounded-md border">
+                      <img 
+                        src={uploadedThumbnail.fileUrl} 
+                        alt="Thumbnail" 
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <Tabs defaultValue="mixed" className="w-full">
+                <TabsList className="grid grid-cols-4 mb-2">
+                  <TabsTrigger value="text">{t("Text")}</TabsTrigger>
+                  <TabsTrigger value="video">{t("Video")}</TabsTrigger>
+                  <TabsTrigger value="pdf">{t("PDF")}</TabsTrigger>
+                  <TabsTrigger value="quiz">{t("Quiz")}</TabsTrigger>
+                </TabsList>
+                <TabsContent value="text">
+                  <div className="space-y-2">
+                    <Label htmlFor="textContent">{t("Text Content")}</Label>
+                    <Textarea
+                      id="textContent"
+                      value={contentData.textContent}
+                      onChange={(e) => setContentData({ ...contentData, textContent: e.target.value })}
+                      placeholder={t("Enter text content or lesson notes")}
+                      className="min-h-[150px]"
+                    />
+                  </div>
+                </TabsContent>
+                <TabsContent value="video">
+                  <div className="space-y-4">
+                    <div>
+                      <AccessibleFileUpload
+                        id="video"
+                        accept="video/*"
+                        label={t("Video File")}
+                        helpText={t("Add high-quality video content")}
+                        showPreview={false}
+                        uploading={isFileUploading}
+                        progress={uploadProgress}
+                        disabled={isFileUploading}
+                        maxSize={500} // 500MB limit
+                        onFilesSelected={(files) => {
+                          if (files.length > 0) {
+                            const event = { target: { files: { 0: files[0], length: 1 } } } as unknown as React.ChangeEvent<HTMLInputElement>;
+                            handleFileUpload(event, 'video');
+                          }
+                        }}
+                        onError={(errorMessage) => {
+                          toast({
+                            variant: "destructive",
+                            title: t("Upload Error"),
+                            description: errorMessage,
+                          });
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Display single video URL for backward compatibility */}
+                    {contentData.videoUrl && !contentData.videoItems.some(v => v.url === contentData.videoUrl) && (
+                      <div className="mt-2 p-2 border rounded-md bg-gray-50">
+                        <div className="text-sm font-medium">{t("Video")}</div>
+                        <div className="text-sm text-blue-600 mt-1 truncate">
+                          <a href={contentData.videoUrl} target="_blank" rel="noopener noreferrer">
+                            {contentData.videoUrl}
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Display multiple videos with titles */}
+                    {contentData.videoItems && contentData.videoItems.length > 0 && (
+                      <div className="mt-2">
+                        <Label>{t("addedVideos")}</Label>
+                        <div className="space-y-2 mt-1">
+                          {contentData.videoItems.map((video, index) => (
+                            <div key={index} className="p-2 border rounded-md bg-gray-50">
+                              <div className="flex justify-between items-start">
+                                <div>
+                                  <div className="flex items-center">
+                                    <Video className="w-4 h-4 mr-2 text-red-500" />
+                                    <div className="text-sm font-medium overflow-hidden text-ellipsis">
+                                      <Input 
+                                        value={video.name} 
+                                        onChange={(e) => {
+                                          const updatedVideos = [...contentData.videoItems];
+                                          updatedVideos[index] = {
+                                            ...updatedVideos[index],
+                                            name: e.target.value
+                                          };
+                                          setContentData({
+                                            ...contentData,
+                                            videoItems: updatedVideos
+                                          });
+                                        }}
+                                        className="h-6 py-1 px-2 mb-1 border-gray-300"
+                                        placeholder={t("videoTitle")}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="text-xs text-blue-600 truncate mt-1">
+                                    <a href={video.url} target="_blank" rel="noopener noreferrer">
+                                      {video.url}
+                                    </a>
+                                  </div>
+                                </div>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    const updatedVideos = contentData.videoItems.filter((_, i) => i !== index);
+                                    setContentData({
+                                      ...contentData,
+                                      videoItems: updatedVideos
+                                    });
+                                  }}
+                                  className="h-6 w-6 p-0 text-red-500"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </TabsContent>
+                <TabsContent value="pdf">
+                  <div className="space-y-4">
+                    <div>
+                      <AccessibleFileUpload
+                        id="pdf"
+                        accept="application/pdf"
+                        label={t("PDF File")}
+                        helpText={t("You can add multiple PDFs to this content")}
+                        showPreview={false}
+                        uploading={isFileUploading}
+                        progress={uploadProgress}
+                        disabled={isFileUploading}
+                        maxSize={50} // 50MB limit
+                        onFilesSelected={(files) => {
+                          if (files.length > 0) {
+                            const event = { target: { files: { 0: files[0], length: 1 } } } as unknown as React.ChangeEvent<HTMLInputElement>;
+                            handleFileUpload(event, 'pdf');
+                          }
+                        }}
+                        onError={(errorMessage) => {
+                          toast({
+                            variant: "destructive",
+                            title: t("Upload Error"),
+                            description: errorMessage,
+                          });
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Display single PDF URL for backward compatibility */}
+                    {contentData.pdfUrl && !contentData.pdfItems.some(p => p.url === contentData.pdfUrl) && (
+                      <div className="mt-2 p-2 border rounded-md bg-gray-50">
+                        <div className="text-sm font-medium">{t("PDF")}</div>
+                        <div className="text-sm text-blue-600 mt-1 truncate">
+                          <a href={contentData.pdfUrl} target="_blank" rel="noopener noreferrer">
+                            {contentData.pdfUrl}
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Display multiple PDFs with titles */}
+                    {contentData.pdfItems && contentData.pdfItems.length > 0 && (
+                      <div className="mt-2">
+                        <Label>{t("Added PDFs")}</Label>
+                        <div className="space-y-2 mt-1">
+                          {contentData.pdfItems.map((pdf, index) => (
+                            <div key={index} className="p-2 border rounded-md bg-gray-50">
+                              <div className="flex justify-between items-start">
+                                <div>
+                                  <div className="flex items-center">
+                                    <File className="w-4 h-4 mr-2 text-orange-500" />
+                                    <div className="text-sm font-medium overflow-hidden text-ellipsis">
+                                      <Input 
+                                        value={pdf.name} 
+                                        onChange={(e) => {
+                                          const updatedPDFs = [...contentData.pdfItems];
+                                          updatedPDFs[index] = {
+                                            ...updatedPDFs[index],
+                                            name: e.target.value
+                                          };
+                                          setContentData({
+                                            ...contentData,
+                                            pdfItems: updatedPDFs
+                                          });
+                                        }}
+                                        className="h-6 py-1 px-2 mb-1 border-gray-300"
+                                        placeholder={t("PDF Title")}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="text-xs text-blue-600 truncate mt-1">
+                                    <a href={pdf.url} target="_blank" rel="noopener noreferrer">
+                                      {pdf.url}
+                                    </a>
+                                  </div>
+                                </div>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    const updatedPDFs = contentData.pdfItems.filter((_, i) => i !== index);
+                                    setContentData({
+                                      ...contentData,
+                                      pdfItems: updatedPDFs
+                                    });
+                                  }}
+                                  className="h-6 w-6 p-0 text-red-500"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </TabsContent>
+                <TabsContent value="quiz">
+                  <div className="space-y-2">
+                    <Label htmlFor="quizContent">{t("Quiz Content")}</Label>
+                    <Alert className="mb-3">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertTitle>{t("Quiz Format")}</AlertTitle>
+                      <AlertDescription>
+                        {t("Format: Question|Option1,Option2,Option3|CorrectOption")}
+                      </AlertDescription>
+                    </Alert>
+                    <Textarea
+                      id="quizContent"
+                      value={contentData.quizContent}
+                      onChange={(e) => setContentData({ ...contentData, quizContent: e.target.value })}
+                      placeholder={t("What is the capital of France?|Paris,London,Berlin|Paris")}
+                      className="min-h-[150px]"
+                    />
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+            <DialogFooter className="mt-4">
+              <Button 
+                type="submit" 
+                disabled={isFileUploading || createContentMutation.isPending || updateContentMutation.isPending || !contentData.title}
+                className="bg-black text-white hover:bg-gray-800"
+              >
+                {createContentMutation.isPending || updateContentMutation.isPending 
+                  ? (selectedContent ? t("Updating...") : t("Adding...")) 
+                  : (selectedContent ? t("Update Content") : t("Add Content"))
+                }
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}

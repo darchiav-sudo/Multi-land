@@ -1,0 +1,397 @@
+https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-dib-TTMz.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-DENkBCd8.css
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/appInstall.js
+77Fetch finished loading: GET "<URL>".
+index-dib-TTMz.js:176 Browser: Chrome 143.0.0.0 Safari
+index-dib-TTMz.js:176 User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+index-dib-TTMz.js:176 Upload capability: Supported
+index-dib-TTMz.js:176 Connection type: 4g
+index-dib-TTMz.js:176 Connection downlink: 10 Mbps
+index-dib-TTMz.js:49 Device info: {deviceType: 'desktop', os: 'Windows', browser: 'Chrome', version: 'unknown', userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb…KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', …}
+index-dib-TTMz.js:49 Preparing to register no-cache service worker
+index-dib-TTMz.js:49 Error setting status bar: ca: "StatusBar" plugin is not implemented on web
+    at f (index-dib-TTMz.js:49:49321)
+    at index-dib-TTMz.js:49:49449
+    at async Rh (index-dib-TTMz.js:49:59536)
+Rh @ index-dib-TTMz.js:49
+await in Rh
+(anonymous) @ index-dib-TTMz.js:176Understand this error
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/web-DoVJhekt.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/web-I6xs1C8-.js
+index-dib-TTMz.js:49 Unregistering old service worker
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/categories
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/user
+index-dib-TTMz.js:176 Initializing app services - first run
+index-dib-TTMz.js:49 Device info: {deviceType: 'desktop', os: 'Windows', browser: 'Chrome', version: 'unknown', userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb…KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', …}
+index-dib-TTMz.js:121 WebSocket connections temporarily disabled to preserve database resources
+index-dib-TTMz.js:49 Error setting status bar: ca: "StatusBar" plugin is not implemented on web
+    at f (index-dib-TTMz.js:49:49321)
+    at index-dib-TTMz.js:49:49449
+    at async Rh (index-dib-TTMz.js:49:59536)
+Rh @ index-dib-TTMz.js:49
+await in Rh
+(anonymous) @ index-dib-TTMz.js:176
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+jp @ index-dib-TTMz.js:41
+T @ index-dib-TTMz.js:26
+N @ index-dib-TTMz.js:26Understand this error
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/web-C1KkOTMk.js
+index-dib-TTMz.js:121 WebSocket connections temporarily disabled to preserve database resources
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/manifest.json
+index-dib-TTMz.js:49 All caches cleared
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/courses
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-CAMd0Ota.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/card-DauF-Rmc.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/book-open-Gu2ktNyz.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/circle-check-4bJuqaAL.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/chevron-right-DKU1bmOn.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/external-link-BE3KUnZD.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/settings-IN7-IwZB.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/courses-SIPahM8B.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/dialog-D8F4r63n.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-DNsORCuT.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-CseEJOgx.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/Combination-I99erczB.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/form-DL6n21CW.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-CEGXY8CH.js
+12Fetch finished loading: GET "<URL>".
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/label-_emRx1G_.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/select-CQcAGNMG.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-BdQq_4o_.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-BwehSFHp.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-F5458j5A.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-BcRt6J2H.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-DqWL0VLp.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/check-VIC5TKFJ.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/input-BRXNhaFs.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/textarea-BAtsuDpa.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/switch-DozZPkb-.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/badge-B4AHBnab.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/schema-CTxZMedU.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/arrow-left-BWSrr49o.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/plus-XZYLaQtn.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/file-text-DrReB_Xk.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/square-pen-DeHGBxm8.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/trash-2-CEDT3D20.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/users-Du2Q_sQA.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/tabs-CrFjVXLu.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/index-Pxsqgsbf.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/alert-dialog-D775r8d0.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/user-plus-CKegS6j8.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/search-tYFwCBO6.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/user-DIEy4ooy.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/circle-check-big-PAqHigOi.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/clock-ytnJ0ewu.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/trash-Cqb3Jwv7.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/categories-DpGM_cmm.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/tooltip-CNm2yW4I.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/chart-column-DT3yeYlp.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/users-D-Te-5Cj.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/video-DIPHRQcE.js
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/log-out-BgL9GxA4.js
+manifest.json:1 Manifest: scope_extensions entry ignored, required properties 'type' and 'origin' are missing.Understand this warning
+admin:1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">Understand this warning
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/icons/icon-192x192.png
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/enrollments
+appInstall.js:26 Multi Land app is installable
+service-worker.js?nocache=1766080725562:6 [Service Worker] Installing no-cache version
+index-dib-TTMz.js:49 No-cache Service Worker registered with scope: https://multi-land.replit.app/
+admin:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+service-worker.js?nocache=1766080709879:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/admin/stats
+index-dib-TTMz.js:121 Query failed for /api/enrollments: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-dib-TTMz.js:121
+await in (anonymous)
+i @ index-dib-TTMz.js:49
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+fetchQuery @ index-dib-TTMz.js:49
+prefetchQuery @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:176
+await in (anonymous)
+(anonymous) @ index-dib-TTMz.js:176
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+(anonymous) @ index-dib-TTMz.js:41
+setTimeout
+o @ index-dib-TTMz.js:49
+s @ index-dib-TTMz.js:49
+batch @ index-dib-TTMz.js:49
+_t @ index-dib-TTMz.js:49
+setData @ index-dib-TTMz.js:49
+onSuccess @ index-dib-TTMz.js:49
+c @ index-dib-TTMz.js:49
+Promise.then
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+uo @ index-dib-TTMz.js:49
+onSubscribe @ index-dib-TTMz.js:49
+subscribe @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+sp @ index-dib-TTMz.js:39
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+jp @ index-dib-TTMz.js:41
+T @ index-dib-TTMz.js:26
+N @ index-dib-TTMz.js:26Understand this error
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/enrollments
+index-dib-TTMz.js:121 Query failed for /api/enrollments: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-dib-TTMz.js:121
+await in (anonymous)
+i @ index-dib-TTMz.js:49
+E @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+Promise.then
+(anonymous) @ index-dib-TTMz.js:49
+Promise.catch
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+fetchQuery @ index-dib-TTMz.js:49
+prefetchQuery @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:176
+await in (anonymous)
+(anonymous) @ index-dib-TTMz.js:176
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+(anonymous) @ index-dib-TTMz.js:41
+setTimeout
+o @ index-dib-TTMz.js:49
+s @ index-dib-TTMz.js:49
+batch @ index-dib-TTMz.js:49
+_t @ index-dib-TTMz.js:49
+setData @ index-dib-TTMz.js:49
+onSuccess @ index-dib-TTMz.js:49
+c @ index-dib-TTMz.js:49
+Promise.then
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+uo @ index-dib-TTMz.js:49
+onSubscribe @ index-dib-TTMz.js:49
+subscribe @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+sp @ index-dib-TTMz.js:39
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+jp @ index-dib-TTMz.js:41
+T @ index-dib-TTMz.js:26
+N @ index-dib-TTMz.js:26Understand this error
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/progress
+service-worker.js?nocache=1766080725562:11 [Service Worker] Activating no-cache version
+service-worker.js?nocache=1766080725562:23 [Service Worker] All caches cleared
+index-dib-TTMz.js:121 Query failed for /api/progress: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-dib-TTMz.js:121
+await in (anonymous)
+i @ index-dib-TTMz.js:49
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+fetchQuery @ index-dib-TTMz.js:49
+prefetchQuery @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:176
+await in (anonymous)
+(anonymous) @ index-dib-TTMz.js:176
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+(anonymous) @ index-dib-TTMz.js:41
+setTimeout
+o @ index-dib-TTMz.js:49
+s @ index-dib-TTMz.js:49
+batch @ index-dib-TTMz.js:49
+_t @ index-dib-TTMz.js:49
+setData @ index-dib-TTMz.js:49
+onSuccess @ index-dib-TTMz.js:49
+c @ index-dib-TTMz.js:49
+Promise.then
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+uo @ index-dib-TTMz.js:49
+onSubscribe @ index-dib-TTMz.js:49
+subscribe @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+sp @ index-dib-TTMz.js:39
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+jp @ index-dib-TTMz.js:41
+T @ index-dib-TTMz.js:26
+N @ index-dib-TTMz.js:26Understand this error
+2index-dib-TTMz.js:49 Found 0 cached videos
+2index-dib-TTMz.js:49 Current video cache size: 0.00 MB, target: 500 MB
+index-dib-TTMz.js:176 Service worker registered successfully
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/progress
+index-dib-TTMz.js:121 Query failed for /api/progress: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-dib-TTMz.js:121
+await in (anonymous)
+i @ index-dib-TTMz.js:49
+E @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+Promise.then
+(anonymous) @ index-dib-TTMz.js:49
+Promise.catch
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+fetchQuery @ index-dib-TTMz.js:49
+prefetchQuery @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:176
+await in (anonymous)
+(anonymous) @ index-dib-TTMz.js:176
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+(anonymous) @ index-dib-TTMz.js:41
+setTimeout
+o @ index-dib-TTMz.js:49
+s @ index-dib-TTMz.js:49
+batch @ index-dib-TTMz.js:49
+_t @ index-dib-TTMz.js:49
+setData @ index-dib-TTMz.js:49
+onSuccess @ index-dib-TTMz.js:49
+c @ index-dib-TTMz.js:49
+Promise.then
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+uo @ index-dib-TTMz.js:49
+onSubscribe @ index-dib-TTMz.js:49
+subscribe @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+sp @ index-dib-TTMz.js:39
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+jp @ index-dib-TTMz.js:41
+T @ index-dib-TTMz.js:26
+N @ index-dib-TTMz.js:26Understand this error
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/logout
+service-worker.js?nocache=1766080725562:33 Fetch finished loading: POST "https://multi-land.replit.app/api/logout".
+(anonymous) @ service-worker.js?nocache=1766080725562:33
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/home-page-DsrXXUzg.js
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/footer-rdOW2c-l.js
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/use-translation-CGppZ8Ob.js
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/menu-BPKvcV8j.js
+index-dib-TTMz.js:121 Fetch finished loading: POST "https://multi-land.replit.app/api/logout".
+Pn @ index-dib-TTMz.js:121
+mutationFn @ index-dib-TTMz.js:176
+fn @ index-dib-TTMz.js:49
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+execute @ index-dib-TTMz.js:49
+await in execute
+mutate @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+A @ index-CAMd0Ota.js:11
+Qw.test.n.<computed> @ index-dib-TTMz.js:121
+tg @ index-dib-TTMz.js:38
+rg @ index-dib-TTMz.js:38
+og @ index-dib-TTMz.js:38
+pc @ index-dib-TTMz.js:38
+Qf @ index-dib-TTMz.js:38
+(anonymous) @ index-dib-TTMz.js:38
+gu @ index-dib-TTMz.js:41
+hf @ index-dib-TTMz.js:38
+Ys @ index-dib-TTMz.js:38
+Ql @ index-dib-TTMz.js:38
+Eg @ index-dib-TTMz.js:38
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/app-version?nocache=1766080730878
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/auth-page-nPqvPzXP.js
+index-dib-TTMz.js:176 Login attempt for: meridarchia1@gmail.com (iOS: false)
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/login
+service-worker.js?nocache=1766080725562:33 Fetch finished loading: POST "https://multi-land.replit.app/api/login".
+(anonymous) @ service-worker.js?nocache=1766080725562:33
+index-dib-TTMz.js:176 Login response received successfully
+index-dib-TTMz.js:176 User data cached, redirecting to My Learning page
+index-dib-TTMz.js:176 [PROTECTED ROUTE DEBUG] My Learning | User: {id: 2, email: 'meridarchia1@gmail.com'} | Loading: false | Match: true | Path: /my-learning
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/my-learning-page-BPCjj7tE.js
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/progress-badge-9WwXfHYM.js
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/enrollments
+index-dib-TTMz.js:176 [PROTECTED ROUTE DEBUG] My Learning | User: {id: 2, email: 'meridarchia1@gmail.com'} | Loading: false | Match: true | Path: /my-learning
+index-dib-TTMz.js:121 Fetch finished loading: POST "https://multi-land.replit.app/api/login".
+Pn @ index-dib-TTMz.js:121
+mutationFn @ index-dib-TTMz.js:176
+fn @ index-dib-TTMz.js:49
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+execute @ index-dib-TTMz.js:49
+await in execute
+mutate @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:49
+g @ auth-page-nPqvPzXP.js:1
+p @ auth-page-nPqvPzXP.js:1
+(anonymous) @ index-CEGXY8CH.js:1
+await in (anonymous)
+onClick @ auth-page-nPqvPzXP.js:1
+tg @ index-dib-TTMz.js:38
+rg @ index-dib-TTMz.js:38
+og @ index-dib-TTMz.js:38
+pc @ index-dib-TTMz.js:38
+Qf @ index-dib-TTMz.js:38
+(anonymous) @ index-dib-TTMz.js:38
+gu @ index-dib-TTMz.js:41
+hf @ index-dib-TTMz.js:38
+Ys @ index-dib-TTMz.js:38
+Ql @ index-dib-TTMz.js:38
+Eg @ index-dib-TTMz.js:38
+index-dib-TTMz.js:121 Query failed for /api/enrollments: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-dib-TTMz.js:121
+await in (anonymous)
+i @ index-dib-TTMz.js:49
+E @ index-dib-TTMz.js:49
+start @ index-dib-TTMz.js:49
+fetch @ index-dib-TTMz.js:49
+fetchQuery @ index-dib-TTMz.js:49
+prefetchQuery @ index-dib-TTMz.js:49
+(anonymous) @ index-dib-TTMz.js:176
+await in (anonymous)
+(anonymous) @ index-dib-TTMz.js:176
+ws @ index-dib-TTMz.js:41
+vr @ index-dib-TTMz.js:41
+My @ index-dib-TTMz.js:41
+kn @ index-dib-TTMz.js:41
+Wc @ index-dib-TTMz.js:41
+xn @ index-dib-TTMz.js:39
+(anonymous) @ index-dib-TTMz.js:41Understand this error
+index-dib-TTMz.js:176 [PROTECTED ROUTE DEBUG] My Learning | User: {id: 2, email: 'meridarchia1@gmail.com'} | Loading: false | Match: true | Path: /my-learning
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/users/2/progress
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/api/users/2/enrollments
+service-worker.js?nocache=1766080725562:32 [Service Worker] Fetch pass-through: https://multi-land.replit.app/assets/courses-page-DSAlR-sO.js
+index-dib-TTMz.js:176 [PROTECTED ROUTE DEBUG] My Learning | User: {id: 2, email: 'meridarchia1@gmail.com'} | Loading: false | Match: true | Path: /my-learning

@@ -1,0 +1,101 @@
+{
+  "name": "Multi Land",
+  "short_name": "Multi Land",
+  "description": "Multilingual learning platform with courses in English, Russian, and Georgian",
+  "version": "2.0.5",
+  "version_code": 2,
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["education", "learning", "courses"],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.multiland.app",
+      "id": "com.multiland.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/multi-land/id1234567890",
+      "id": "1234567890"
+    }
+  ],
+  "scope": "/",
+  "scope_extensions": [
+    {
+      "origin": "https://multiland.app"
+    }
+  ],
+  "id": "multiland",
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Home screen of Multi Land"
+    },
+    {
+      "src": "/screenshots/screenshot2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Course details in Multi Land"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "My Learning",
+      "short_name": "My Learning",
+      "description": "View your enrolled courses",
+      "url": "/my-learning",
+      "icons": [
+        {
+          "src": "/icons/shortcut-learning.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "All Courses",
+      "short_name": "Courses",
+      "description": "Browse all courses",
+      "url": "/courses",
+      "icons": [
+        {
+          "src": "/icons/shortcut-courses.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "display_override": ["window-controls-overlay", "standalone"]
+}

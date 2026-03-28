@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Playback Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .video-container {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: white;
+        }
+        video {
+            width: 100%;
+            background-color: #000;
+            border-radius: 4px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #444;
+        }
+        .controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .log {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .error {
+            color: #d32f2f;
+        }
+        .success {
+            color: #388e3c;
+        }
+        .info {
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Playback Test</h1>
+    
+    <div class="video-container">
+        <h2>Test Video 1: Test Video Endpoint</h2>
+        <video id="video1" controls>
+            <source src="/test-video" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button onclick="loadVideo('video1', '/test-video')">Load Test Video</button>
+            <button onclick="playVideo('video1')">Play</button>
+            <button onclick="pauseVideo('video1')">Pause</button>
+            <button onclick="reloadVideo('video1')">Reload</button>
+        </div>
+    </div>
+    
+    <div class="video-container">
+        <h2>Test Video 2: Direct Video Endpoint</h2>
+        <video id="video2" controls>
+            <source src="/direct-video/content-1744050896708-353731143.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button onclick="loadVideo('video2', '/direct-video/content-1744050896708-353731143.mp4')">Load Direct Video</button>
+            <button onclick="playVideo('video2')">Play</button>
+            <button onclick="pauseVideo('video2')">Pause</button>
+            <button onclick="reloadVideo('video2')">Reload</button>
+        </div>
+    </div>
+    
+    <div class="video-container">
+        <h2>Test Video 3: API Video Endpoint</h2>
+        <video id="video3" controls>
+            <source src="/api/video/content-1744050896708-353731143.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button onclick="loadVideo('video3', '/api/video/content-1744050896708-353731143.mp4')">Load API Video</button>
+            <button onclick="playVideo('video3')">Play</button>
+            <button onclick="pauseVideo('video3')">Pause</button>
+            <button onclick="reloadVideo('video3')">Reload</button>
+        </div>
+    </div>
+    
+    <h2>Event Log</h2>
+    <div id="log" class="log"></div>
+    
+    <script>
+        // Get all video elements
+        const videos = {
+            video1: document.getElementById('video1'),
+            video2: document.getElementById('video2'),
+            video3: document.getElementById('video3')
+        };
+        
+        // Log element
+        const logElement = document.getElementById('log');
+        
+        // Log function
+        function logEvent(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.classList.add('log-entry', type);
+            logEntry.textContent = `${timestamp}: ${message}`;
+            logElement.prepend(logEntry);
+        }
+        
+        // Add event listeners to all videos
+        Object.entries(videos).forEach(([id, video]) => {
+            // Successful events
+            video.addEventListener('loadedmetadata', () => logEvent(`${id}: Metadata loaded`, 'success'));
+            video.addEventListener('canplay', () => logEvent(`${id}: Can play`, 'success'));
+            video.addEventListener('canplaythrough', () => logEvent(`${id}: Can play through`, 'success'));
+            video.addEventListener('play', () => logEvent(`${id}: Play started`, 'success'));
+            video.addEventListener('playing', () => logEvent(`${id}: Playing`, 'success'));
+            video.addEventListener('pause', () => logEvent(`${id}: Paused`, 'info'));
+            video.addEventListener('seeking', () => logEvent(`${id}: Seeking...`, 'info'));
+            video.addEventListener('seeked', () => logEvent(`${id}: Seeked`, 'success'));
+            video.addEventListener('ratechange', () => logEvent(`${id}: Playback rate changed to ${video.playbackRate}`, 'info'));
+            video.addEventListener('volumechange', () => logEvent(`${id}: Volume changed to ${video.volume}`, 'info'));
+            video.addEventListener('loadstart', () => logEvent(`${id}: Load started`, 'info'));
+            video.addEventListener('progress', () => logEvent(`${id}: Download progress`, 'info'));
+            
+            // Error events
+            video.addEventListener('error', (e) => {
+                let errorMessage = `${id}: Video error`;
+                if (video.error) {
+                    switch(video.error.code) {
+                        case 1: errorMessage += ` - MEDIA_ERR_ABORTED`; break;
+                        case 2: errorMessage += ` - MEDIA_ERR_NETWORK`; break;
+                        case 3: errorMessage += ` - MEDIA_ERR_DECODE`; break;
+                        case 4: errorMessage += ` - MEDIA_ERR_SRC_NOT_SUPPORTED`; break;
+                        default: errorMessage += ` - Unknown (${video.error.code})`;
+                    }
+                    if (video.error.message) {
+                        errorMessage += `: ${video.error.message}`;
+                    }
+                }
+                logEvent(errorMessage, 'error');
+            });
+            video.addEventListener('stalled', () => logEvent(`${id}: Stalled`, 'error'));
+            video.addEventListener('suspend', () => logEvent(`${id}: Suspended loading`, 'info'));
+            video.addEventListener('abort', () => logEvent(`${id}: Loading aborted`, 'error'));
+        });
+        
+        // Video control functions
+        function loadVideo(id, src) {
+            const video = videos[id];
+            logEvent(`${id}: Loading source ${src}`, 'info');
+            video.src = src;
+            video.load();
+        }
+        
+        function playVideo(id) {
+            const video = videos[id];
+            video.play().catch(err => {
+                logEvent(`${id}: Play error: ${err.message}`, 'error');
+            });
+        }
+        
+        function pauseVideo(id) {
+            const video = videos[id];
+            video.pause();
+        }
+        
+        function reloadVideo(id) {
+            const video = videos[id];
+            const currentSrc = video.currentSrc || video.getElementsByTagName('source')[0].src;
+            video.src = currentSrc;
+            video.load();
+            logEvent(`${id}: Reloaded source ${currentSrc}`, 'info');
+        }
+
+        // Log browser and platform information
+        logEvent(`Browser: ${navigator.userAgent}`, 'info');
+        logEvent(`Platform: ${navigator.platform}`, 'info');
+        logEvent(`Network conditions: ${navigator.connection ? `${navigator.connection.effectiveType} (downlink: ${navigator.connection.downlink}Mbps)` : 'Unknown'}`, 'info');
+    </script>
+</body>
+</html>

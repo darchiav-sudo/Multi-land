@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <!-- Full background (extends to edges for maskable icon) -->
+  <rect width="48" height="48" fill="#000000"/>
+  
+  <!-- Main content (in safe zone - 80% of total area) -->
+  <circle cx="24" cy="24" r="14.4" fill="#FFFFFF"/>
+  
+  <!-- ML Text (slightly smaller than standard icon) -->
+  <text x="24" y="28" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#000000">ML</text>
+</svg>

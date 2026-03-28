@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="400" fill="white"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Multi Land App Store Submission Process</text>
+  
+  <!-- Boxes -->
+  <rect x="50" y="80" width="150" height="80" rx="10" fill="#f0f0f0" stroke="#000000"/>
+  <rect x="250" y="80" width="150" height="80" rx="10" fill="#f0f0f0" stroke="#000000"/>
+  <rect x="450" y="80" width="150" height="80" rx="10" fill="#f0f0f0" stroke="#000000"/>
+  <rect x="650" y="80" width="150" height="80" rx="10" fill="#f0f0f0" stroke="#000000"/>
+  
+  <rect x="150" y="220" width="150" height="80" rx="10" fill="#f0f0f0" stroke="#000000"/>
+  <rect x="350" y="220" width="150" height="80" rx="10" fill="#f0f0f0" stroke="#000000"/>
+  <rect x="550" y="220" width="150" height="80" rx="10" fill="#f0f0f0" stroke="#000000"/>
+  
+  <!-- Box Labels -->
+  <text x="125" y="120" font-family="Arial" font-size="14" text-anchor="middle">1. Deploy on Replit</text>
+  <text x="325" y="120" font-family="Arial" font-size="14" text-anchor="middle">2. Update Config Files</text>
+  <text x="525" y="120" font-family="Arial" font-size="14" text-anchor="middle">3. Create App Icons</text>
+  <text x="725" y="120" font-family="Arial" font-size="14" text-anchor="middle">4. Create Developer Accounts</text>
+  
+  <text x="225" y="260" font-family="Arial" font-size="14" text-anchor="middle">5. Generate App Packages</text>
+  <text x="425" y="260" font-family="Arial" font-size="14" text-anchor="middle">6. Prepare Store Listings</text>
+  <text x="625" y="260" font-family="Arial" font-size="14" text-anchor="middle">7. Submit to App Stores</text>
+  
+  <!-- Arrows -->
+  <line x1="200" y1="120" x2="250" y2="120" stroke="#000000" stroke-width="2"/>
+  <polygon points="250,120 240,115 240,125" fill="#000000"/>
+  
+  <line x1="400" y1="120" x2="450" y2="120" stroke="#000000" stroke-width="2"/>
+  <polygon points="450,120 440,115 440,125" fill="#000000"/>
+  
+  <line x1="600" y1="120" x2="650" y2="120" stroke="#000000" stroke-width="2"/>
+  <polygon points="650,120 640,115 640,125" fill="#000000"/>
+  
+  <line x1="725" y1="160" x2="725" y2="200" stroke="#000000" stroke-width="2"/>
+  <line x1="725" y1="200" x2="225" y2="200" stroke="#000000" stroke-width="2"/>
+  <line x1="225" y1="200" x2="225" y2="220" stroke="#000000" stroke-width="2"/>
+  <polygon points="225,220 220,210 230,210" fill="#000000"/>
+  
+  <line x1="300" y1="260" x2="350" y2="260" stroke="#000000" stroke-width="2"/>
+  <polygon points="350,260 340,255 340,265" fill="#000000"/>
+  
+  <line x1="500" y1="260" x2="550" y2="260" stroke="#000000" stroke-width="2"/>
+  <polygon points="550,260 540,255 540,265" fill="#000000"/>
+  
+  <!-- Footer Text -->
+  <text x="400" y="340" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle">Multi Land: Learn Across Languages</text>
+  <text x="400" y="370" font-family="Arial" font-size="14" text-anchor="middle">Follow this process to easily submit your app to both app stores</text>
+</svg>

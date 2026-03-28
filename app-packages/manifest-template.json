@@ -1,0 +1,100 @@
+{
+  "name": "Multi Land",
+  "short_name": "Multi Land",
+  "description": "Multilingual learning platform with courses in English, Russian, and Georgian",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "My Learning",
+      "short_name": "Learning",
+      "description": "View your enrolled courses",
+      "url": "/my-learning",
+      "icons": [
+        {
+          "src": "/icons/learning-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "short_name": "Courses",
+      "description": "Browse available courses",
+      "url": "/courses",
+      "icons": [
+        {
+          "src": "/icons/courses-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "categories": ["education", "learning", "courses"],
+  "screenshots": [
+    {
+      "src": "/screenshots/home-screen.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home Screen"
+    },
+    {
+      "src": "/screenshots/course-detail.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Course Detail"
+    },
+    {
+      "src": "/screenshots/home-screen-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home Screen (Mobile)"
+    },
+    {
+      "src": "/screenshots/course-detail-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Course Detail (Mobile)"
+    }
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "iarc_rating_id": "",
+  "scope": "/",
+  "id": "multiland"
+}

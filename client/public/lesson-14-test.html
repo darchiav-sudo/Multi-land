@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 14 Video Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .video-container {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: white;
+        }
+        video {
+            width: 100%;
+            background-color: #000;
+            border-radius: 4px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #444;
+        }
+        .controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .log {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .error {
+            color: #d32f2f;
+        }
+        .success {
+            color: #388e3c;
+        }
+        .info {
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lesson 14 Video Test</h1>
+    
+    <div class="video-container">
+        <h2>Lesson 14 Special Endpoint</h2>
+        <video id="lessonVideo" controls preload="auto">
+            <source src="/lesson-14-video" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button onclick="loadVideo('lessonVideo', '/lesson-14-video')">Load Lesson 14 Video</button>
+            <button onclick="playVideo('lessonVideo')">Play</button>
+            <button onclick="pauseVideo('lessonVideo')">Pause</button>
+            <button onclick="reloadVideo('lessonVideo')">Reload</button>
+        </div>
+    </div>
+    
+    <h2>Video Debug Information</h2>
+    <div>
+        <p><strong>Video Element State:</strong></p>
+        <ul id="video-state">
+            <li>Loading...</li>
+        </ul>
+    </div>
+    
+    <h2>Event Log</h2>
+    <div id="log" class="log"></div>
+    
+    <script>
+        // Get video element
+        const video = document.getElementById('lessonVideo');
+        const stateElement = document.getElementById('video-state');
+        
+        // Log element
+        const logElement = document.getElementById('log');
+        
+        // Log function
+        function logEvent(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.classList.add('log-entry', type);
+            logEntry.textContent = `${timestamp}: ${message}`;
+            logElement.prepend(logEntry);
+            
+            // Update video state
+            updateVideoState();
+        }
+        
+        // Update video state display
+        function updateVideoState() {
+            const stateInfo = [
+                `<strong>Ready State:</strong> ${getReadyStateText(video.readyState)}`,
+                `<strong>Network State:</strong> ${getNetworkStateText(video.networkState)}`,
+                `<strong>Paused:</strong> ${video.paused}`,
+                `<strong>Seeking:</strong> ${video.seeking}`,
+                `<strong>Ended:</strong> ${video.ended}`,
+                `<strong>Current Time:</strong> ${video.currentTime.toFixed(2)}s`,
+                `<strong>Duration:</strong> ${isNaN(video.duration) ? 'Unknown' : video.duration.toFixed(2) + 's'}`,
+                `<strong>Default Playback Rate:</strong> ${video.defaultPlaybackRate}`,
+                `<strong>Playback Rate:</strong> ${video.playbackRate}`,
+                `<strong>Autoplay:</strong> ${video.autoplay}`,
+                `<strong>Muted:</strong> ${video.muted}`,
+                `<strong>Volume:</strong> ${video.volume}`,
+                `<strong>Controls:</strong> ${video.controls}`,
+                `<strong>Current Source:</strong> ${video.currentSrc || 'None'}`,
+                `<strong>Video Width:</strong> ${video.videoWidth}px`,
+                `<strong>Video Height:</strong> ${video.videoHeight}px`,
+                `<strong>Error:</strong> ${video.error ? getErrorText(video.error.code) : 'None'}`
+            ];
+            
+            stateElement.innerHTML = stateInfo.map(info => `<li>${info}</li>`).join('');
+        }
+        
+        // Get text for readyState
+        function getReadyStateText(state) {
+            const states = [
+                'HAVE_NOTHING (0): No information',
+                'HAVE_METADATA (1): Metadata loaded',
+                'HAVE_CURRENT_DATA (2): Current frame loaded',
+                'HAVE_FUTURE_DATA (3): Next frame loaded',
+                'HAVE_ENOUGH_DATA (4): Enough data loaded'
+            ];
+            return states[state] || `Unknown (${state})`;
+        }
+        
+        // Get text for networkState
+        function getNetworkStateText(state) {
+            const states = [
+                'NETWORK_EMPTY (0): Not initialized',
+                'NETWORK_IDLE (1): Resource selected but not in use',
+                'NETWORK_LOADING (2): Loading data',
+                'NETWORK_NO_SOURCE (3): No source found'
+            ];
+            return states[state] || `Unknown (${state})`;
+        }
+        
+        // Get text for error code
+        function getErrorText(code) {
+            const errors = [
+                'MEDIA_ERR_ABORTED (1): Fetching process aborted',
+                'MEDIA_ERR_NETWORK (2): Network error',
+                'MEDIA_ERR_DECODE (3): Decoding error',
+                'MEDIA_ERR_SRC_NOT_SUPPORTED (4): Format not supported'
+            ];
+            return errors[code - 1] || `Unknown (${code})`;
+        }
+        
+        // Add event listeners
+        video.addEventListener('loadedmetadata', () => logEvent('Metadata loaded', 'success'));
+        video.addEventListener('canplay', () => logEvent('Can play', 'success'));
+        video.addEventListener('canplaythrough', () => logEvent('Can play through', 'success'));
+        video.addEventListener('play', () => logEvent('Play started', 'success'));
+        video.addEventListener('playing', () => logEvent('Playing', 'success'));
+        video.addEventListener('pause', () => logEvent('Paused', 'info'));
+        video.addEventListener('seeking', () => logEvent('Seeking...', 'info'));
+        video.addEventListener('seeked', () => logEvent('Seeked', 'success'));
+        video.addEventListener('ratechange', () => logEvent(`Playback rate changed to ${video.playbackRate}`, 'info'));
+        video.addEventListener('volumechange', () => logEvent(`Volume changed to ${video.volume}`, 'info'));
+        video.addEventListener('loadstart', () => logEvent('Load started', 'info'));
+        video.addEventListener('progress', () => logEvent('Download progress', 'info'));
+        video.addEventListener('waiting', () => logEvent('Waiting for data', 'info'));
+        video.addEventListener('timeupdate', () => {
+            // Don't log every timeupdate event as it would flood the log
+            updateVideoState();
+        });
+        
+        // Error events
+        video.addEventListener('error', (e) => {
+            let errorMessage = 'Video error';
+            if (video.error) {
+                switch(video.error.code) {
+                    case 1: errorMessage += ` - MEDIA_ERR_ABORTED`; break;
+                    case 2: errorMessage += ` - MEDIA_ERR_NETWORK`; break;
+                    case 3: errorMessage += ` - MEDIA_ERR_DECODE`; break;
+                    case 4: errorMessage += ` - MEDIA_ERR_SRC_NOT_SUPPORTED`; break;
+                    default: errorMessage += ` - Unknown (${video.error.code})`;
+                }
+                if (video.error.message) {
+                    errorMessage += `: ${video.error.message}`;
+                }
+            }
+            logEvent(errorMessage, 'error');
+        });
+        video.addEventListener('stalled', () => logEvent('Stalled', 'error'));
+        video.addEventListener('suspend', () => logEvent('Suspended loading', 'info'));
+        video.addEventListener('abort', () => logEvent('Loading aborted', 'error'));
+        
+        // Video control functions
+        function loadVideo(id, src) {
+            const videoElement = document.getElementById(id);
+            logEvent(`Loading source ${src}`, 'info');
+            videoElement.src = src;
+            videoElement.load();
+        }
+        
+        function playVideo(id) {
+            const videoElement = document.getElementById(id);
+            videoElement.play().catch(err => {
+                logEvent(`Play error: ${err.message}`, 'error');
+            });
+        }
+        
+        function pauseVideo(id) {
+            const videoElement = document.getElementById(id);
+            videoElement.pause();
+        }
+        
+        function reloadVideo(id) {
+            const videoElement = document.getElementById(id);
+            const currentSrc = videoElement.currentSrc || videoElement.getElementsByTagName('source')[0].src;
+            videoElement.src = currentSrc;
+            videoElement.load();
+            logEvent(`Reloaded source ${currentSrc}`, 'info');
+        }
+
+        // Log browser and platform information
+        logEvent(`Browser: ${navigator.userAgent}`, 'info');
+        logEvent(`Platform: ${navigator.platform}`, 'info');
+        logEvent(`Network conditions: ${navigator.connection ? `${navigator.connection.effectiveType} (downlink: ${navigator.connection.downlink}Mbps)` : 'Unknown'}`, 'info');
+        
+        // Initial state
+        updateVideoState();
+        
+        // Check for MSE support
+        if ('MediaSource' in window) {
+            logEvent('MediaSource Extensions (MSE) are supported', 'success');
+        } else {
+            logEvent('MediaSource Extensions (MSE) are NOT supported', 'error');
+        }
+        
+        // Check for EME support
+        if ('requestMediaKeySystemAccess' in navigator) {
+            logEvent('Encrypted Media Extensions (EME) are supported', 'success');
+        } else {
+            logEvent('Encrypted Media Extensions (EME) are NOT supported', 'error');
+        }
+    </script>
+</body>
+</html>
